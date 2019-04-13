@@ -85,7 +85,8 @@ for application in fulcrumForm['forms']:
 ```
 
 #### Create Individual Object (And Detail Objects) From Individiual Fulcrum Application
-```import json
+```Python
+import json
 import FulcrumApplicationToSalesforceObject as fts
 from fulcrum import Fulcrum
 
