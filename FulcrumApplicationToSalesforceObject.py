@@ -19,7 +19,6 @@ __status__ = "Development"
 # all fields and objects created through this class will use this prefix
 #   Detail objects will have d_ appended (i.e.) in addition to the prefix
 _sfdcPrefix = 'f_'
-_sfdcPrefix = 'f_'
 _sfdcUsername = "your.salesforce@username.com"
 _sfdcPassword = "yourSalesforcePassword"
 _sfdcToken = "yourSalesforceSecurityToken"
