@@ -7,6 +7,11 @@ https://github.com/damienheiser/python-SalesforceMetadataAPISupport
 I have expanded https://github.com/sun30nil/python-SalesforceMetadataAPISupport to accept the createMetadata() and updateMetadata() methods for the Salesforce Metadata API
 
 ## Class: FulcrumApplicationToSalesforceObject
+This class provides methods to map Fulcrum Field Types to Salesforce Custom Field Types, extract choice values into Value Sets, create Lookups, create Master Detail relationships, generate DateTime from a Date field immediately preceeding a Time field, generate Address Fields, Decimal Number and Integer Number fields.
+
+### Known limitations
+Does not map ClassificationField
+Does not map CalculationField
 
 ### Primary Method construct_fulcrum_sfdc_object (application, action='create')
 This method expects the root of an application. These are presented different based on the context of data receipt from Fulcrum.
