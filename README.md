@@ -14,13 +14,31 @@ This class provides methods to map Fulcrum Field Types to Salesforce Custom Fiel
 	Does not map CalculationField
 
 ### Primary Method construct_fulcrum_sfdc_object (application, action='create')
-This method expects the root of an application. These are presented different based on the context of data receipt from Fulcrum.
+This method expects the root of an application dict. These are presented different based on the context of data receipt from Fulcrum.
 
 	Webhooks encapsulate in .data
 
 	forms/{{id}}.json encapsulates in .form
 
 	forms.json encapsulates as .forms
+
+#### Action attribute
+Use `create` to create new object and field metadata
+
+Use `update` to update currently existing object and field metadata
+
+#### Theory of Operation
+	Involk construct_fulcrum_sfcd_object
+	Generate Custom Object Dict
+	Iterate Through Fields
+		Generate Custom Field Dict
+	Generate XML
+	Inject XML into Salesforce Metadata SOAP API
+	Interate Through Fields, Detect Master Detail Relationships
+		Generate Custom Object For Each Detail Object
+		Generate Custom Field Dict for Each Detail Object
+		Generate XML
+		Inject XML into Salesforce Metadata SOAP API
 
 ### Example Code
 In this example, we get a list of every Fulcrum Application. We then iterate through the entire application set, and create an object for every Application and Repeatable Section.
