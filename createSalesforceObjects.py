@@ -22,12 +22,12 @@ fulcrumForm = r.json()
 
 # Create new objects for each application
 for application in fulcrumForm['forms']:
-	sfdcObjectId = fulcrumToSalesforce.construct_fulcrum_sfdc_object (application, 'create')
+	fulcrumToSalesforce.construct_fulcrum_sfdc_object (application, 'create')
 
 # Run through a second time to allow new Lookup relationships to be discovered
 for application in fulcrumForm['forms']:
-	sfdcObjectId = fulcrumToSalesforce.construct_fulcrum_sfdc_object (application, 'create')
+	fulcrumToSalesforce.construct_fulcrum_sfdc_object (application, 'create')
 
 # Make one more complete pass through in order to make any metadata changes that may have gone through since initial load
 for application in fulcrumForm['forms']:
-	sfdcObjectId = fulcrumToSalesforce.construct_fulcrum_sfdc_object (application, 'update')
+	fulcrumToSalesforce.construct_fulcrum_sfdc_object (application, 'update')
