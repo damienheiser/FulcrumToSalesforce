@@ -47,6 +47,7 @@ It iterates through create twice, because any Lookup fields that were not active
 
 An Update then takes place, so if this code is run after the fact, it will create new objects, and update metadata on previously create objects.
 
+#### Create Salesforce Objects From Every Fulcrum Application
 ```Python
 import json
 import FulcrumApplicationToSalesforceObject as fts
@@ -72,19 +73,43 @@ fulcrumForm = r.json()
 
 # Create new objects for each application
 for application in fulcrumForm['forms']:
-	sfdcObjectId = fulcrumToSalesforce.construct_fulcrum_sfdc_object (application, 'create')
+	fulcrumToSalesforce.construct_fulcrum_sfdc_object (application, 'create')
 
 # Run through a second time to allow new Lookup relationships to be discovered
 for application in fulcrumForm['forms']:
-	sfdcObjectId = fulcrumToSalesforce.construct_fulcrum_sfdc_object (application, 'create')
+	fulcrumToSalesforce.construct_fulcrum_sfdc_object (application, 'create')
 
 # Make one more complete pass through in order to make any metadata changes that may have gone through since initial load
 for application in fulcrumForm['forms']:
-	sfdcObjectId = fulcrumToSalesforce.construct_fulcrum_sfdc_object (application, 'update')
+	fulcrumToSalesforce.construct_fulcrum_sfdc_object (application, 'update')
 ```
 
-### Sample Output
-```python createSalesforceObjects.py 
+#### Create Individual Object (And Detail Objects) From Individiual Fulcrum Application
+```import json
+import FulcrumApplicationToSalesforceObject as fts
+from fulcrum import Fulcrum
+
+_sfdcPrefix = 'f_'
+_sfdcUsername = "your.salesforce@username.com"
+_sfdcPassword = "yourSalesforcePassword"
+_sfdcToken = "yourSalesforceSecurityToken"
+_sfdcSandbox = True
+_fulcrumXApiToken = "yourFulcrumAPIToken"
+#The specific Fulcrum Application Form you would like to create in salesforce
+_fulcrumFormId = ""
+
+fulcrum = Fulcrum(key=_fulcrumXApiToken)
+fulcrumToSalesforce = fts.FulcrumApplicationToSalesforceObject ()
+
+# Get Individual Fulcrum Form Fulcrum Applications
+fulcrumForm = fulcrum.form.find(_fulcrumFormId)
+
+# Create Salesforce Object From Fulcrum Form
+fulcrumToSalesforce.construct_fulcrum_sfdc_object (fulcrumForm, 'create')
+```
+
+#### Sample Output
+```python createSalesforceObject.py 
 
 Logged In successfully!
 
