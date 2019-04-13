@@ -1,6 +1,11 @@
 # FulcrumToSalesforce
 Provides classes and various intake methods for Salesforce to consume Fulcrum data.
 
+## Dependencies
+https://github.com/damienheiser/python-SalesforceMetadataAPISupport
+
+I have expanded https://github.com/sun30nil/python-SalesforceMetadataAPISupport to accept the createMetadata() and updateMetadata() methods for the Salesforce Metadata API
+
 ## Class: FulcrumApplicationToSalesforceObject
 
 ### Primary Method construct_fulcrum_sfdc_object (application, action='create')
