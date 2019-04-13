@@ -50,7 +50,6 @@ An Update then takes place, so if this code is run after the fact, it will creat
 ```Python
 import json
 import FulcrumApplicationToSalesforceObject as fts
-from fulcrum import Fulcrum
 import requests
 
 _sfdcPrefix = 'f_'
@@ -63,7 +62,6 @@ _fulcrumXApiToken = "yourFulcrumAPIToken"
 ### Don't change anything below this point
 _fulcrumBaseURL = 'https://api.fulcrumapp.com/api/v2/'
 
-fulcrum = Fulcrum(key=_fulcrumXApiToken)
 fulcrumToSalesforce = fts.FulcrumApplicationToSalesforceObject ()
 
 # Get All Fulcrum Applications
