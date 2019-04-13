@@ -28,7 +28,7 @@ Use `create` to create new object and field metadata
 Use `update` to update currently existing object and field metadata
 
 #### Theory of Operation
-	Involk construct_fulcrum_sfcd_object
+	Involk construct_fulcrum_sfdc_object
 	Generate Custom Object Dict
 	Iterate Through Fields
 		Generate Custom Field Dict
