@@ -9,7 +9,7 @@ I have expanded https://github.com/sun30nil/python-SalesforceMetadataAPISupport 
 ```pip install klein```
 
 ## Proof of Concept FulcrumWebhookIntakeServer.py
-This initial proof of concept intakes requests from the Fulcrum Webhook form.create and form.update, and then Creates the associate Object and Fieles in Salesforce.  Congrats, we have one-way Model integration 
+This initial proof of concept intakes requests from the Fulcrum Webhook form.create and form.update, and then Creates the associated Object and Fieles in Salesforce.  Congrats, we have one-way Model integration 
 
 ## Class: FulcrumApplicationToSalesforceObject
 This class provides methods to map Fulcrum Field Types to Salesforce Custom Field Types, extract choice values into Value Sets, create Lookups, create Master Detail relationships, generate DateTime from a Date field immediately preceeding a Time field, generate Address Fields, Decimal Number and Integer Number fields.
@@ -363,4 +363,14 @@ Creating Metadata!
 			</createMetadataResponse>
 		</key>
 	</key>
-</root>```
+</root>
+```
+
+# To Dos
+- Fulcrum Record Parse to Salesforce Record Create/Update
+- Enable TLS in FulcrumWebhookIntakeServer.py(duh)
+- Enable Other Webhook Methods (record.create, record.update, choicelist.create, choicelist.update)
+- Initilization Script to build Fulcrum objects (Projects, Users)
+- Fulcrum Projects to Salesforce Fulcrum Project Records (Medium)
+- Fulcrum Choice List to Salesforce Global Picklists (Low)
+- Fulcrum Classification Set to Salesforce Dynamic Custom Objects (Low)
