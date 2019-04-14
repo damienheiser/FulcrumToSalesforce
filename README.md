@@ -6,6 +6,11 @@ https://github.com/damienheiser/python-SalesforceMetadataAPISupport
 
 I have expanded https://github.com/sun30nil/python-SalesforceMetadataAPISupport to accept the createMetadata() and updateMetadata() methods for the Salesforce Metadata API
 
+```pip install klein```
+
+## Proof of Concept FulcrumWebhookIntakeServer.py
+This initial proof of concept intakes requests from the Fulcrum Webhook form.create and form.update, and then Creates the associate Object and Fieles in Salesforce.  Congrats, we have one-way Model integration 
+
 ## Class: FulcrumApplicationToSalesforceObject
 This class provides methods to map Fulcrum Field Types to Salesforce Custom Field Types, extract choice values into Value Sets, create Lookups, create Master Detail relationships, generate DateTime from a Date field immediately preceeding a Time field, generate Address Fields, Decimal Number and Integer Number fields.
 
