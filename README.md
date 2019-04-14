@@ -374,3 +374,6 @@ Creating Metadata!
 - Fulcrum Projects to Salesforce Fulcrum Project Records (Medium)
 - Fulcrum Choice List to Salesforce Global Picklists (Low)
 - Fulcrum Classification Set to Salesforce Dynamic Custom Objects (Low)
+- Make output more usable / reportable (extra low yo)
+
+Feel free to contribute, submit a pull request, or let me know if you're using this. (I am)
