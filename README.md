@@ -1,12 +1,6 @@
 # FulcrumToSalesforce
 Provides classes and various intake methods for Salesforce to consume Fulcrum data.
 
-## Screenshots
-![Fulcrum Applocation](FulcrumApplicationScreenshot.png)
-![Salesforce Object Manager](SalesforceObjectManager.png)
-![Salesforce Test Application Details](TestApplicationDetails.png)
-![Salesforce Test Application Fields](TestApplicationFields.png)
-
 ## Dependencies
 https://github.com/damienheiser/python-SalesforceMetadataAPISupport
 
@@ -19,6 +13,12 @@ This initial proof of concept intakes requests from the Fulcrum Webhook form.cre
 
 ## Class: FulcrumApplicationToSalesforceObject
 This class provides methods to map Fulcrum Field Types to Salesforce Custom Field Types, extract choice values into Value Sets, create Lookups, create Master Detail relationships, generate DateTime from a Date field immediately preceeding a Time field, generate Address Fields, Decimal Number and Integer Number fields.
+
+### Screenshots
+![Fulcrum Applocation](FulcrumApplicationScreenshot.png)
+![Salesforce Object Manager](SalesforceObjectManager.png)
+![Salesforce Test Application Details](TestApplicationDetails.png)
+![Salesforce Test Application Fields](TestApplicationFields.png)
 
 ### Known limitations
 	Does not map ClassificationField
