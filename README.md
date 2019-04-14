@@ -1,6 +1,12 @@
 # FulcrumToSalesforce
 Provides classes and various intake methods for Salesforce to consume Fulcrum data.
 
+## Screenshots
+![Fulcrum Applocation](FulcrumApplicationScreenshot.png)
+![Salesforce Object Manager](SalesforceObjectManager.png)
+![Salesforce Test Application Details](TestApplicationDetails.png)
+![Salesforce Test Application Fields](TestApplicationFields.png)
+
 ## Dependencies
 https://github.com/damienheiser/python-SalesforceMetadataAPISupport
 
