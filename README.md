@@ -28,7 +28,6 @@ This is anticipated to be feature complete.  The following metadata types are ma
 - Fulcrum Project -> Lookup
 - Date -> Date
 - Time -> Text and DateTime if a Date field immediately preceeds time field in the Fulcrum field drder DateTime 
-- 
 - Sections are parsed
 - All Fulcrum system metadata mapped
 
