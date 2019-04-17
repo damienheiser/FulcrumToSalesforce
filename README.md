@@ -8,90 +8,38 @@ I have expanded https://github.com/sun30nil/python-SalesforceMetadataAPISupport 
 
 ```pip install klein```
 
-## Proof of Concept FulcrumWebhookIntakeServer.py
-This initial proof of concept intakes requests from the Fulcrum Webhook form.create and form.update, and then Creates the associated Object and Fieles in Salesforce.  Congrats, we have one-way Model integration 
 
-```Text
-python ./FulcrumWebhookIntakeServer.py 
-2019-04-14 08:06:26-0700 [-] Log opened.
-2019-04-14 08:06:26-0700 [-] Site starting on 8080
-2019-04-14 08:06:26-0700 [-] Starting factory <twisted.web.server.Site instance at 0x10568e5f0>
-2019-04-14 08:06:31-0700 [-] 
-2019-04-14 08:06:31-0700 [-] "35.172.214.156" - - [14/Apr/2019:15:06:31 +0000] "POST /fulcrumApp/webHook/Receipt HTTP/1.1" 200 - "-" "Ruby"
-2019-04-14 08:06:52-0700 [-] 
-2019-04-14 08:06:52-0700 [-] Form Update
-2019-04-14 08:06:52-0700 [-] 
-2019-04-14 08:06:52-0700 [-] Logged In successfully!
-2019-04-14 08:06:52-0700 [-] 
-2019-04-14 08:06:52-0700 [-] Creating Object! Test Application
-2019-04-14 08:06:52-0700 [-]    Creating Field! f_Fulcrum_Id__c : Fulcrum Id (Text)
-2019-04-14 08:06:52-0700 [-]    Creating Field! f_Location__c : Location (Location)
-2019-04-14 08:06:52-0700 [-]    Creating Field! f_Assigned_To__c : Assigned To (Text)
-2019-04-14 08:06:52-0700 [-]    Creating Field! f_Fulcrum_Assigned_To_Id__c : Fulcrum Assigned To Id (Text)
-2019-04-14 08:06:52-0700 [-]    Creating Field! f_Fulcrum_Project_Id__c : Fulcrum Project Id (Text)
-2019-04-14 08:06:52-0700 [-]    Creating Field! f_Fulcrum_Project__c : Fulcrum Project (Lookup)
-2019-04-14 08:06:52-0700 [-]    Creating Field! f_Title__c : Title (Text)
-2019-04-14 08:06:52-0700 [-]    Creating Field! f_created_duration__c : Created Duration (Number Precision:18 Scale:0)
-2019-04-14 08:06:52-0700 [-]    Creating Field! f_updated_duration__c : Updated Duration (Number Precision:18 Scale:0)
-2019-04-14 08:06:52-0700 [-]    Creating Field! f_edited_duration__c : Edited Duration (Number Precision:18 Scale:0)
-2019-04-14 08:06:52-0700 [-]    Creating Field Value! status : Status (StatusField) | Value : Status 1
-2019-04-14 08:06:52-0700 [-]    Creating Field Value! status : Status (StatusField) | Value : Status 2
-2019-04-14 08:06:52-0700 [-]    Creating Field Value! status : Status (StatusField) | Value : Status 3
-2019-04-14 08:06:52-0700 [-]    Creating Field! f_status__c : Status (Picklist)
-2019-04-14 08:06:52-0700 [-]    Creating Field! f_7a8c__c : Text Label (Text)
-2019-04-14 08:06:52-0700 [-]    Creating Field! f_d823__c : Number Label (Number Precision:18 Scale:9)
-2019-04-14 08:06:52-0700 [-]    Creating Field! f_7a17__c : Yes No Label (Picklist)
-2019-04-14 08:06:52-0700 [-]    Creating Field! f_92a0__c : Date Label (Date)
-2019-04-14 08:06:52-0700 [-]    Creating Field! f_92a0_62e5__c : Time Label (DateTime)
-2019-04-14 08:06:52-0700 [-]    Creating Field! f_b373__c : Single Choice Label (Picklist)
-2019-04-14 08:06:52-0700 [-]    Creating Field! f_bf37__c : Multiple Choice Label (MultiselectPicklist)
-2019-04-14 08:06:52-0700 [-]    Creating Field! f_8361__c : Repeatable Section (LongTextArea)
-2019-04-14 08:06:52-0700 [-]    Creating Field! f_1fce__c : Signature (LongTextArea)
-2019-04-14 08:06:52-0700 [-]    Creating Field! f_6142__c : Photos (LongTextArea)
-2019-04-14 08:06:52-0700 [-]    Creating Field! f_9744__c : Videos (LongTextArea)
-2019-04-14 08:06:52-0700 [-]    Creating Field! f_a4d1__c : Audio (LongTextArea)
-2019-04-14 08:06:52-0700 [-]    Creating Multiple Fields! Address (Address)
-2019-04-14 08:06:52-0700 [-]    Creating Field! f_3998_sub_thoroughfare__c : Address Street Number (Text)
-2019-04-14 08:06:52-0700 [-]    Creating Field! f_3998_thoroughfare__c : Address Street (Text)
-2019-04-14 08:06:52-0700 [-]    Creating Field! f_3998_suite__c : Address Suite (Text)
-2019-04-14 08:06:52-0700 [-]    Creating Field! f_3998_locality__c : Address City (Text)
-2019-04-14 08:06:52-0700 [-]    Creating Field! f_3998_sub_admin_area__c : Address County (Text)
-2019-04-14 08:06:52-0700 [-]    Creating Field! f_3998_admin_area__c : Address State/Province (Text)
-2019-04-14 08:06:52-0700 [-]    Creating Field! f_3998_country__c : Address Country (Text)
-2019-04-14 08:06:52-0700 [-]    Creating Field! f_7284__c : Barcode (Text)
-2019-04-14 08:06:52-0700 [-]    Creating Field! f_e73f__c : Hyperlink (Url)
-2019-04-14 08:06:52-0700 [-]    Creating Field! f_631e__c : Record Link (Lookup)
-2019-04-14 08:06:53-0700 [-] 
-2019-04-14 08:06:53-0700 [-] Creating Metadata!
-```
+## Class: FulcrumApplicationToSalesforceObject
+This class provides methods to create Salesforce objects from a Fulcrum Application.
 
+This is anticipated to be feature complete.  The following metadata types are mapped.
+
+- Record Link -> Lookup
+- Multiple Record Links -> Junction Master/Detail Object
+- Repeatable Section -> Detail Object
+- Yes/No Field -> Picklist (Neutral also mapped)
+- Classification Field -> Multiselect Picklist
+- Calculation Field -> Text or Number based on Fulcrum Display Type
+- Text -> Text (255 or less specified for Max Length) or TextArea (No length or > 255 specified)
+- Decimal Number -> Number (18,9)
+- Integer Number -> Number (18,0)
+- Picklist -> Picklist with Value Set Creation
+- Multiselect Picklist -> Multiselect Picklist with Value Set Creation
+- Fulcrum Project -> Lookup
+- Date -> Date
+- Time -> Text and DateTime if a Date field immediately preceeds time field in the Fulcrum field drder DateTime 
+- 
+- Sections are parsed
+- All Fulcrum system metadata mapped
+
+### Known limitations
+	None. Should be feature complete.
+	
 ### Screenshots
 ![Fulcrum Applocation](FulcrumApplicationScreenshot.png)
 ![Salesforce Object Manager](SalesforceObjectManager.png)
 ![Salesforce Test Application Details](TestApplicationDetails.png)
 ![Salesforce Test Application Fields](TestApplicationFields.png)
-
-## Class: FulcrumApplicationToSalesforceObject
-This class provides methods to map Fulcrum Field Types to Salesforce Custom Field Types, extract choice values into Value Sets, create Lookups, create Master Detail relationships, generate DateTime from a Date field immediately preceeding a Time field, generate Address Fields, Decimal Number and Integer Number fields.
-
-This is anticipated to be feature complete.  All metadata types are mapped.
-
-- Record Links -> Lookup
-- Multiple Record Links -> Junction Master/Detail Object
-- Repeatable Sections -> Detail Object
-- Yes/No Fields -> Picklist
-- Classification Field -> Multiselect Picklist
-- Calculation Field -> Text or Number based on Fulcrum Display Type
-- Text -> Text (255 or less specified for Max Length) or TextAarea (No length or > 255 specified)
-- Decimal Number -> Number (18,9)
-- Integer Number -> Number (18,0)
-- Picklist -> Picklist with Value Set Creation
-- Multiselect Picklist -> Multiselect Picklist with Value Set Creation
-- Fulcrum Project Object Link (method to create this object is included in the class)
-- All Fulcrum system metadata mapped
-
-### Known limitations
-	None. Should be feature complete.
 
 ### Primary Method construct_fulcrum_sfdc_object (application, action='create')
 This method expects the root of an application dict. These are presented different based on the context of data receipt from Fulcrum.
@@ -120,7 +68,7 @@ Use `update` to update currently existing object and field metadata
 		Generate XML
 		Inject XML into Salesforce Metadata SOAP API
 
-### Example Code
+### Examples
 In this example, we get a list of every Fulcrum Application. We then iterate through the entire application set, and create an object for every Application and Repeatable Section.
 
 It iterates through create twice, because any Lookup fields that were not active prior to the creation of the object will then be created.
@@ -442,14 +390,72 @@ Creating Metadata!
 </root>
 ```
 
+## Proof of Concept FulcrumWebhookIntakeServer.py
+This initial proof of concept intakes requests from the Fulcrum Webhook form.create and form.update, and then Creates the associated Object and Fieles in Salesforce.  Congrats, we have one-way Model integration 
+
+```Text
+python ./FulcrumWebhookIntakeServer.py 
+2019-04-14 08:06:26-0700 [-] Log opened.
+2019-04-14 08:06:26-0700 [-] Site starting on 8080
+2019-04-14 08:06:26-0700 [-] Starting factory <twisted.web.server.Site instance at 0x10568e5f0>
+2019-04-14 08:06:31-0700 [-] 
+2019-04-14 08:06:31-0700 [-] "35.172.214.156" - - [14/Apr/2019:15:06:31 +0000] "POST /fulcrumApp/webHook/Receipt HTTP/1.1" 200 - "-" "Ruby"
+2019-04-14 08:06:52-0700 [-] 
+2019-04-14 08:06:52-0700 [-] Form Update
+2019-04-14 08:06:52-0700 [-] 
+2019-04-14 08:06:52-0700 [-] Logged In successfully!
+2019-04-14 08:06:52-0700 [-] 
+2019-04-14 08:06:52-0700 [-] Creating Object! Test Application
+2019-04-14 08:06:52-0700 [-]    Creating Field! f_Fulcrum_Id__c : Fulcrum Id (Text)
+2019-04-14 08:06:52-0700 [-]    Creating Field! f_Location__c : Location (Location)
+2019-04-14 08:06:52-0700 [-]    Creating Field! f_Assigned_To__c : Assigned To (Text)
+2019-04-14 08:06:52-0700 [-]    Creating Field! f_Fulcrum_Assigned_To_Id__c : Fulcrum Assigned To Id (Text)
+2019-04-14 08:06:52-0700 [-]    Creating Field! f_Fulcrum_Project_Id__c : Fulcrum Project Id (Text)
+2019-04-14 08:06:52-0700 [-]    Creating Field! f_Fulcrum_Project__c : Fulcrum Project (Lookup)
+2019-04-14 08:06:52-0700 [-]    Creating Field! f_Title__c : Title (Text)
+2019-04-14 08:06:52-0700 [-]    Creating Field! f_created_duration__c : Created Duration (Number Precision:18 Scale:0)
+2019-04-14 08:06:52-0700 [-]    Creating Field! f_updated_duration__c : Updated Duration (Number Precision:18 Scale:0)
+2019-04-14 08:06:52-0700 [-]    Creating Field! f_edited_duration__c : Edited Duration (Number Precision:18 Scale:0)
+2019-04-14 08:06:52-0700 [-]    Creating Field Value! status : Status (StatusField) | Value : Status 1
+2019-04-14 08:06:52-0700 [-]    Creating Field Value! status : Status (StatusField) | Value : Status 2
+2019-04-14 08:06:52-0700 [-]    Creating Field Value! status : Status (StatusField) | Value : Status 3
+2019-04-14 08:06:52-0700 [-]    Creating Field! f_status__c : Status (Picklist)
+2019-04-14 08:06:52-0700 [-]    Creating Field! f_7a8c__c : Text Label (Text)
+2019-04-14 08:06:52-0700 [-]    Creating Field! f_d823__c : Number Label (Number Precision:18 Scale:9)
+2019-04-14 08:06:52-0700 [-]    Creating Field! f_7a17__c : Yes No Label (Picklist)
+2019-04-14 08:06:52-0700 [-]    Creating Field! f_92a0__c : Date Label (Date)
+2019-04-14 08:06:52-0700 [-]    Creating Field! f_92a0_62e5__c : Time Label (DateTime)
+2019-04-14 08:06:52-0700 [-]    Creating Field! f_b373__c : Single Choice Label (Picklist)
+2019-04-14 08:06:52-0700 [-]    Creating Field! f_bf37__c : Multiple Choice Label (MultiselectPicklist)
+2019-04-14 08:06:52-0700 [-]    Creating Field! f_8361__c : Repeatable Section (LongTextArea)
+2019-04-14 08:06:52-0700 [-]    Creating Field! f_1fce__c : Signature (LongTextArea)
+2019-04-14 08:06:52-0700 [-]    Creating Field! f_6142__c : Photos (LongTextArea)
+2019-04-14 08:06:52-0700 [-]    Creating Field! f_9744__c : Videos (LongTextArea)
+2019-04-14 08:06:52-0700 [-]    Creating Field! f_a4d1__c : Audio (LongTextArea)
+2019-04-14 08:06:52-0700 [-]    Creating Multiple Fields! Address (Address)
+2019-04-14 08:06:52-0700 [-]    Creating Field! f_3998_sub_thoroughfare__c : Address Street Number (Text)
+2019-04-14 08:06:52-0700 [-]    Creating Field! f_3998_thoroughfare__c : Address Street (Text)
+2019-04-14 08:06:52-0700 [-]    Creating Field! f_3998_suite__c : Address Suite (Text)
+2019-04-14 08:06:52-0700 [-]    Creating Field! f_3998_locality__c : Address City (Text)
+2019-04-14 08:06:52-0700 [-]    Creating Field! f_3998_sub_admin_area__c : Address County (Text)
+2019-04-14 08:06:52-0700 [-]    Creating Field! f_3998_admin_area__c : Address State/Province (Text)
+2019-04-14 08:06:52-0700 [-]    Creating Field! f_3998_country__c : Address Country (Text)
+2019-04-14 08:06:52-0700 [-]    Creating Field! f_7284__c : Barcode (Text)
+2019-04-14 08:06:52-0700 [-]    Creating Field! f_e73f__c : Hyperlink (Url)
+2019-04-14 08:06:52-0700 [-]    Creating Field! f_631e__c : Record Link (Lookup)
+2019-04-14 08:06:53-0700 [-] 
+2019-04-14 08:06:53-0700 [-] Creating Metadata!
+```
+
+
 # To Dos
-- Fulcrum Record Parse to Salesforce Record Create/Update
+- Fulcrum Record Parse to Salesforce Record Create/Update (80% Complete)
 - Enable TLS in FulcrumWebhookIntakeServer.py(duh)
 - Enable Other Webhook Methods (record.create, record.update, choicelist.create, choicelist.update)
-- Initilization Script to build Fulcrum objects (Projects, Users)
+- Initilization Script to build Fulcrum objects (Projects, Users) (Projects Done)
 - Fulcrum Projects to Salesforce Fulcrum Project Records (Medium)
 - Fulcrum Choice List to Salesforce Global Picklists (Low)
-- Fulcrum Classification Set to Salesforce Dynamic Custom Objects (Low)
+- Fulcrum Classification Set to Salesforce Dynamic Custom Objects (Low) (Tooling in place to allow this)
 - Make output more usable / reportable (extra low yo)
 
 Feel free to contribute, submit a pull request, or let me know if you're using this. (I am)
