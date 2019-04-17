@@ -74,9 +74,24 @@ python ./FulcrumWebhookIntakeServer.py
 ## Class: FulcrumApplicationToSalesforceObject
 This class provides methods to map Fulcrum Field Types to Salesforce Custom Field Types, extract choice values into Value Sets, create Lookups, create Master Detail relationships, generate DateTime from a Date field immediately preceeding a Time field, generate Address Fields, Decimal Number and Integer Number fields.
 
+This is anticipated to be feature complete.  All metadata types are mapped.
+
+- Record Links -> Lookup
+- Multiple Record Links -> Junction Master/Detail Object
+- Repeatable Sections -> Detail Object
+- Yes/No Fields -> Picklist
+- Classification Field -> Multiselect Picklist
+- Calculation Field -> Text or Number based on Fulcrum Display Type
+- Text -> Text (255 or less specified for Max Length) or TextAarea (No length or > 255 specified)
+- Decimal Number -> Number (18,9)
+- Integer Number -> Number (18,0)
+- Picklist -> Picklist with Value Set Creation
+- Multiselect Picklist -> Multiselect Picklist with Value Set Creation
+- Fulcrum Project Object Link (method to create this object is included in the class)
+- All Fulcrum system metadata mapped
+
 ### Known limitations
-	Does not map ClassificationField
-	Does not map CalculationField
+	None. Should be feature complete.
 
 ### Primary Method construct_fulcrum_sfdc_object (application, action='create')
 This method expects the root of an application dict. These are presented different based on the context of data receipt from Fulcrum.
