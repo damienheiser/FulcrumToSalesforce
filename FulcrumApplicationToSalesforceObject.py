@@ -51,10 +51,7 @@ __Changelog02__ = """Added fields to object creation that weren't in the form mo
 				   	 Junction Objects for Record Lookups with Multiple Records
 				   	 Append First 13 Characters of FormID to any Junction/Detail Object
 				   	 Feature Complete?"""
-__Changelog03__	= """Various mapping errors, concatenation fixes, and bug fixes.
-					 Tested against FulcrumRecordToSalesforceRecord.py which is in the
-					 burningmantech/Fulcrum_To_Salesforce repository.
-					 This will be the last release on /damienheiser/FulcrumToSalesforce"""
+__Changelog03__	= """Various mapping errors, concatenation fixes, and bug fixes."""
 
 # used for xml manipulation, don't chage me <3
 _item_to_none_func = lambda x: None
