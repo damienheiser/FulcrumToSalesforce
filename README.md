@@ -446,20 +446,9 @@ python ./FulcrumWebhookIntakeServer.py
 2019-04-14 08:06:53-0700 [-] Creating Metadata!
 ```
 
-
-# To Dos
-- Fulcrum Record Parse to Salesforce Record Create/Update (80% Complete)
-- Enable TLS in FulcrumWebhookIntakeServer.py(duh)
-- Enable Other Webhook Methods (record.create, record.update, choicelist.create, choicelist.update)
-- Initilization Script to build Fulcrum objects (Projects, Users) (Projects Done)
-- Fulcrum Projects to Salesforce Fulcrum Project Records (Medium)
-- Fulcrum Choice List to Salesforce Global Picklists (Low)
-- Fulcrum Classification Set to Salesforce Dynamic Custom Objects (Low) (Tooling in place to allow this)
-- Make output more usable / reportable (extra low yo)
+# 🍻
 
 Feel free to contribute, submit a pull request, or let me know if you're using this. (I am)
-
-Buy me a beer :)
 
 - BTC: 3EoWxPwrT6L2fVj6w9kW49pR1MBUg9oNXr
 - BCH: qpgu0kjf30qkl3x4urzhp2k84fh90p00jyv70wfry8
