@@ -30,7 +30,7 @@ _sfdcAutoNumberDisplayDetail = 'YYYY-MM-DD-{000000}'
 __author__ = "Damien Heiser"
 __copyright__ = "Copyright 2019, Damien Heiser"
 __credits__ = ["Damien Heiser"]
-__version__ = "0.2"
+__version__ = "0.3"
 __maintainer__ = "Damien Heiser"
 __email__ = "damien@damienheiser.com"
 __status__ = "Development"
@@ -51,6 +51,10 @@ __Changelog02__ = """Added fields to object creation that weren't in the form mo
 				   	 Junction Objects for Record Lookups with Multiple Records
 				   	 Append First 13 Characters of FormID to any Junction/Detail Object
 				   	 Feature Complete?"""
+__Changelog03__	= """Various mapping errors, concatenation fixes, and bug fixes.
+					 Tested against FulcrumRecordToSalesforceRecord.py which is in the
+					 burningmantech/Fulcrum_To_Salesforce repository.
+					 This will be the last release on /damienheiser/FulcrumToSalesforce"""
 
 # used for xml manipulation, don't chage me <3
 _item_to_none_func = lambda x: None
@@ -327,8 +331,7 @@ class FulcrumApplicationToSalesforceObject:
 	def salesforce_custom_field_masterdetail (self, field, parentId, parentLabel, junction=False):
 		fieldKey = field['key'].replace('-','_')
 		fullName = _sfdcPrefix + fieldKey
-		relationshipName = _sfdcPrefix + fieldKey + '_' + parentId[2:15].replace('-','_')
-		print 'relationshipName: ' + relationshipName
+		relationshipName = _sfdcPrefix + parentId[2:15].replace('-','_') + '_' + fieldKey
 
 		if junction == False:
 			sfdcField = {
@@ -348,7 +351,7 @@ class FulcrumApplicationToSalesforceObject:
 				'description':field['description'],
 				'referenceTo':parentId,
 				'relationshipLabel':field['label'] + 's',
-				'relationshipName':relationshipName + '_d2',
+				'relationshipName':relationshipName + '_d',
 				'relationshipOrder':1
 			}
 		print '   Creating Field! '+ sfdcField['fullName'] + ' : ' + sfdcField['label'] +' ('+ sfdcField['type'] +')'
@@ -377,7 +380,7 @@ class FulcrumApplicationToSalesforceObject:
 			'required':field['required'],
 			'referenceTo': (_sfdcPrefix + field['form_id'] + '__c').replace('-','_'),
 			'relationshipLabel':field['label'] + 's',
-			'relationshipName': _sfdcPrefix + field['key'] + '_' + field['form_id'][0:13].replace('-','_') + '_l',
+			'relationshipName': _sfdcPrefix + field['form_id'][0:13].replace('-','_') + '_' + field['key'] + '_d',
 		}
 		print '   Creating Field! '+ sfdcField['fullName'] + ' : ' + sfdcField['label'] +' ('+ sfdcField['type'] +')'
 		return sfdcField
@@ -702,7 +705,7 @@ class FulcrumApplicationToSalesforceObject:
 		print 'Creating Junction Object!'
 		print 'Label: ' + field['label']
 		#Appends the first 13 characters of the Form ID to the Key to prevent collissions
-		junctionFullName = _sfdcPrefix + field['key'].replace('-','_') + '_' + data['id'][0:13].replace('-','_') + '_j__c'
+		junctionFullName = _sfdcPrefix + data['id'][0:13].replace('-','_') + '_' + field['key'].replace('-','_') + '_j__c'
 		print 'FullName: ' + junctionFullName
 		xml = ''
 
@@ -776,10 +779,10 @@ class FulcrumApplicationToSalesforceObject:
 			self.salesforce_custom_field_decimal_number ({'key':'horizontal_accuracy', 'label':'Horizontal Accuracy', 'description':'','required':False}),
 			self.salesforce_custom_field_decimal_number ({'key':'vertical_accuracy', 'label':'Vertical Accuracy', 'description':'','required':False}),
 			self.salesforce_custom_field_integer_number ({'key':'version', 'label':'Record Version', 'description':'Fulcrum Record Version','required':False}),
-			self.salesforce_custom_field_datetime ({'key':'created', 'label':'Fulcrum Server Created At', 'description':'Created Date Time that the Fulcrum Record was saved to the Fulcrum Server','required':False},{'key':'at', 'label':'Fulcrum Server Created At', 'description':'Created Date Time that the Fulcrum Record was saved to the Fulcrum Server','required':False}),
-			self.salesforce_custom_field_datetime ({'key':'updated', 'label':'Fulcrum Server Updated At', 'description':'Last Updated Date Time that the Fulcrum Record was saved to Fulcrum','required':False},{'key':'at', 'label':'Fulcrum Server Created At', 'description':'Created Date Time that the Fulcrum Record was saved to the Fulcrum Server','required':False}),
-			self.salesforce_custom_field_datetime ({'key':'client_created', 'label':'Fulcrum Client Created At', 'description':'Created Date Time that the Fulcrum Record was Created on the Client Device','required':False},{'key':'at', 'label':'Fulcrum Server Created At', 'description':'Created Date Time that the Fulcrum Record was saved to the Fulcrum Server','required':False}),
-			self.salesforce_custom_field_datetime ({'key':'client_updated', 'label':'Fulcrum Client Updated At', 'description':'Created Date Time that the Fulcrum Record was Updated on the Client Device','required':False},{'key':'at', 'label':'Fulcrum Server Created At', 'description':'Created Date Time that the Fulcrum Record was saved to the Fulcrum Server','required':False}),
+			self.salesforce_custom_field_datetime ({'key':'created', 'label':'Fulcrum Server Created Date', 'description':'Created Date Time that the Fulcrum Record was saved to the Fulcrum Server','required':False},{'key':'at', 'label':'Fulcrum Server Created Date', 'description':'Created Date Time that the Fulcrum Record was saved to the Fulcrum Server','required':False}),
+			self.salesforce_custom_field_datetime ({'key':'updated', 'label':'Fulcrum Server Updated Date', 'description':'Last Updated Date Time that the Fulcrum Record was saved to Fulcrum','required':False},{'key':'at', 'label':'Fulcrum Server Updated Date', 'description':'Created Date Time that the Fulcrum Record was saved to the Fulcrum Server','required':False}),
+			self.salesforce_custom_field_datetime ({'key':'client_created', 'label':'Fulcrum Client Created Date', 'description':'Created Date Time that the Fulcrum Record was Created on the Client Device','required':False},{'key':'at', 'label':'Fulcrum Client Created Date', 'description':'Created Date Time that the Fulcrum Record was saved to the Fulcrum Server','required':False}),
+			self.salesforce_custom_field_datetime ({'key':'client_updated', 'label':'Fulcrum Client Updated Date', 'description':'Created Date Time that the Fulcrum Record was Updated on the Client Device','required':False},{'key':'at', 'label':'Fulcrum Client Updated Date', 'description':'Created Date Time that the Fulcrum Record was saved to the Fulcrum Server','required':False}),
 			self.salesforce_custom_field_text ({'key':'created_by', 'label':'Fulcrum Created By', 'description':'The user that created this record in Fulcrum','required':False}),
 			self.salesforce_custom_field_text ({'key':'created_by_id', 'label':'Fulcrum Created By Id', 'description':'The user that created this record in Fulcrum','required':False}),
 			self.salesforce_custom_field_text ({'key':'updated_by', 'label':'Fulcrum Updated By', 'description':'The user that last updated this record in Fulcrum','required':False}),
@@ -852,35 +855,11 @@ class FulcrumApplicationToSalesforceObject:
 	def construct_fulcrum_sfdc_object_child (self, data, parentId, parentLabel, action = 'create'):
 		print 'Creating ' + parentLabel + ' Detail Object! '
 		print 'Label: ' + data['label']
-		print 'FullName: ' + _sfdcPrefix + data['key'].replace('-', '_') + '__c'
-		sfdcFields = [
-			self.salesforce_integration_field_fulcrum_id (),
-			self.salesforce_integration_field_location (data),
-			self.fulcrum_title_to_salesforce_formula (data), #Disabled until I get titles working right
-			self.salesforce_custom_field_masterdetail (data, parentId, parentLabel),
-			self.salesforce_custom_field_text ({'key':'created_by_id', 'label':'Fulcrum Created By Id', 'description':'The user that created this record in Fulcrum','required':False}),
-			self.salesforce_custom_field_text ({'key':'updated_by_id', 'label':'Fulcrum Last Updated By Id', 'description':'The user that last updated this record in Fulcrum','required':False}),
-			self.salesforce_custom_field_integer_number ({'key':'created_duration', 'label':'Created Duration', 'description':'Time to initially create this record in sections','required':False}),
-			self.salesforce_custom_field_integer_number ({'key':'updated_duration', 'label':'Updated Duration', 'description':'Time spent updating this updating','required':False}),
-			self.salesforce_custom_field_integer_number ({'key':'edited_duration', 'label':'Edited Duration', 'description':'Time spent editing this record','required':False}),
-			self.salesforce_custom_field_integer_number ({'key':'version', 'label':'Record Version', 'description':'Fulcrum Record Version','required':False}),
-			self.salesforce_custom_field_text ({'key':'changeset_id', 'label':'Fulcrum Changeset Id', 'description':'','required':False}),
-			self.salesforce_custom_field_datetime ({'key':'created', 'label':'Fulcrum Server Created At', 'description':'Created Date Time that the Fulcrum Record was saved to the Fulcrum Server','required':False},{'key':'at', 'label':'Fulcrum Server Created At', 'description':'Created Date Time that the Fulcrum Record was saved to the Fulcrum Server','required':False}),
-			self.salesforce_custom_field_datetime ({'key':'updated', 'label':'Fulcrum Server Updated At', 'description':'Last Updated Date Time that the Fulcrum Record was saved to Fulcrum','required':False},{'key':'at', 'label':'Fulcrum Server Created At', 'description':'Created Date Time that the Fulcrum Record was saved to the Fulcrum Server','required':False}),
-			self.salesforce_custom_field_text ({'key':'form_id', 'label':'Fulcrum Form Id', 'description':'Fulcrum Form Id','required':False}),
-		]
-
-		xml = ''
-
-		sfdcFields.extend (self.fulcrum_to_salesforce_field_elements (data, data['elements']))
-
-		for sfdcField in sfdcFields:
-			# Leave the .replace on here.  It's to get rid of a duplicate parent Item keys for nested tables
-			xml += dicttoxml.dicttoxml({'fields': sfdcField}, item_func=_item_to_none_func, attr_type=False, root=False).replace('<value>','').replace('</value>','').replace('<None>','<value>').replace('</None>','</value>')
+		fullName = _sfdcPrefix + parentId[2:15] + '_' + data['key'].replace('-', '_')
 
 		sfdcObject = {'label':data['label'][0:40],
 			'pluralLabel':data['label'][0:39] + 's',
-			'fullName': _sfdcPrefix + data['key'] + '_d' + '__c',
+			'fullName': fullName + '_d' + '__c',
 			'sharingModel':'ControlledByParent',
 			'deploymentStatus':'Deployed',
 			'startsWith':self.startsWithVowel(data['label']),
@@ -895,8 +874,36 @@ class FulcrumApplicationToSalesforceObject:
 				'displayFormat':_sfdcAutoNumberDisplayDetail}
 			}
 
+		print "FullName: " + sfdcObject['fullName']
+
+		sfdcFields = [
+			self.salesforce_integration_field_fulcrum_id (),
+			self.salesforce_integration_field_location (data),
+			self.fulcrum_title_to_salesforce_formula (data), #Disabled until I get titles working right
+			self.salesforce_custom_field_masterdetail (data, parentId, parentLabel),
+			self.salesforce_custom_field_text ({'key':'created_by_id', 'label':'Fulcrum Created By Id', 'description':'The user that created this record in Fulcrum','required':False}),
+			self.salesforce_custom_field_text ({'key':'updated_by_id', 'label':'Fulcrum Last Updated By Id', 'description':'The user that last updated this record in Fulcrum','required':False}),
+			self.salesforce_custom_field_integer_number ({'key':'created_duration', 'label':'Created Duration', 'description':'Time to initially create this record in sections','required':False}),
+			self.salesforce_custom_field_integer_number ({'key':'updated_duration', 'label':'Updated Duration', 'description':'Time spent updating this updating','required':False}),
+			self.salesforce_custom_field_integer_number ({'key':'edited_duration', 'label':'Edited Duration', 'description':'Time spent editing this record','required':False}),
+			self.salesforce_custom_field_integer_number ({'key':'version', 'label':'Record Version', 'description':'Fulcrum Record Version','required':False}),
+			self.salesforce_custom_field_text ({'key':'changeset_id', 'label':'Fulcrum Changeset Id', 'description':'','required':False}),
+			self.salesforce_custom_field_datetime ({'key':'created', 'label':'Fulcrum Server Created Date', 'description':'Created Date Time that the Fulcrum Record was saved to the Fulcrum Server','required':False},{'key':'at', 'label':'Fulcrum Server Created At', 'description':'Created Date Time that the Fulcrum Record was saved to the Fulcrum Server','required':False}),
+			self.salesforce_custom_field_datetime ({'key':'updated', 'label':'Fulcrum Server Updated Date', 'description':'Last Updated Date Time that the Fulcrum Record was saved to Fulcrum','required':False},{'key':'at', 'label':'Fulcrum Server Updated At', 'description':'Last Updated Date Time that the Fulcrum Record was saved to Fulcrum','required':False}),
+			self.salesforce_custom_field_text ({'key':'form_id', 'label':'Fulcrum Form Id', 'description':'Fulcrum Form Id','required':False}),
+		]
+
+		xml = ''
+
 		# Leave the .replace on here.  It's to get rid of a duplicate parent Item keys for nested tables
 		xml += dicttoxml.dicttoxml(sfdcObject, item_func=_item_to_none_func, attr_type=False, root=False).replace('<value>','').replace('</value>','').replace('<None>','<value>').replace('</None>','</value>')
+
+		sfdcFields.extend (self.fulcrum_to_salesforce_field_elements (data, data['elements']))
+
+		for sfdcField in sfdcFields:
+			# Leave the .replace on here.  It's to get rid of a duplicate parent Item keys for nested tables
+			xml += dicttoxml.dicttoxml({'fields': sfdcField}, item_func=_item_to_none_func, attr_type=False, root=False).replace('<value>','').replace('</value>','').replace('<None>','<value>').replace('</None>','</value>')
+
 		actionResult = []
 
 		actionResult.append (self.commit_salesforce_change (xml, action))
@@ -931,8 +938,8 @@ class FulcrumApplicationToSalesforceObject:
 		sfdcFields = [
 			self.salesforce_integration_field_fulcrum_id (),
 			self.salesforce_custom_field_text ({'key':'description', 'label':'Description', 'description':'Description of this project from Fulcrum','required':False}),
-			self.salesforce_custom_field_datetime ({'key':'created', 'label':'Fulcrum Server Created At', 'description':'Created Date Time that the Fulcrum Record was saved to the Fulcrum Server','required':False},{'key':'at', 'label':'Fulcrum Server Created At', 'description':'Created Date Time that the Fulcrum Record was saved to the Fulcrum Server','required':False}),
-			self.salesforce_custom_field_datetime ({'key':'updated', 'label':'Fulcrum Server Updated At', 'description':'Last Updated Date Time that the Fulcrum Record was saved to Fulcrum','required':False},{'key':'at', 'label':'Fulcrum Server Created At', 'description':'Created Date Time that the Fulcrum Record was saved to the Fulcrum Server','required':False}),
+			self.salesforce_custom_field_datetime ({'key':'created', 'label':'Fulcrum Server Created Date', 'description':'Created Date Time that the Fulcrum Record was saved to the Fulcrum Server','required':False},{'key':'at', 'label':'Fulcrum Server Created Date', 'description':'Created Date Time that the Fulcrum Record was saved to the Fulcrum Server','required':False}),
+			self.salesforce_custom_field_datetime ({'key':'updated', 'label':'Fulcrum Server Updated Date', 'description':'Last Updated Date Time that the Fulcrum Record was saved to Fulcrum','required':False},{'key':'at', 'label':'Fulcrum Server Created Date', 'description':'Created Date Time that the Fulcrum Record was saved to the Fulcrum Server','required':False}),
 		]
 
 		for sfdcField in sfdcFields:
