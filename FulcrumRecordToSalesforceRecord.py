@@ -29,6 +29,17 @@ _isDateFieldDefault = False
 _fulcrumXApiToken = ""
 _fulcrumBaseURL = 'https://api.fulcrumapp.com/api/v2/'
 
+
+__author__ = "Damien Heiser"
+__copyright__ = "Copyright 2019, Damien Heiser, Burning Man Project"
+__credits__ = ["Damien Heiser"]
+__version__ = "0.1"
+__maintainer__ = "Damien Heiser"
+__email__ = "damien.heiser@burningman.org, damien@damienheiser.com"
+__status__ = "Development"
+__Changelog01__ = "Initial Release"
+
+
 class FulcrumRecordToSalesforceRecord:
 
 	_sfdcSession_id, _sfdcInstance = SalesforceLogin(username=_sfdcUsername, password=_sfdcPassword, security_token=_sfdcToken, domain=_sfdcDomain)
